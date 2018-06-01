@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+
+<form action="/comments" method="POST">
+    <div class="ui form">
+        <div class="ui field">
+            <label>Movie</label>
+            <select name="comment[ID]" class="ui fluid dropdown">
+                <% movies.forEach(function(movie){ %>
+                    <option value="<%= movie._id %>"><%= movie.Title %> (<%= movie._id %>)</option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="ui field">
+            <label>Comment</label>
+            <textarea name="comment[content]"></textarea>
+        </div>
+        <button class="ui green button">Submit</button>
+    </div>
+</form>
+
+<% include ../partials/footer %>
