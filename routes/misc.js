@@ -6,7 +6,11 @@ router.get("/", function(req, res){
 });
 
 router.get("*", function(req, res){
-    res.redirect("/");
+    if(req.isThisQuery){
+        res.send({error: "Page not found"});
+    } else {
+        res.redirect("/");
+    }
 });
 
 module.exports = router;

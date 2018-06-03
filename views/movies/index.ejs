@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+
+<div class="ui padded stackable grid container">
+    <% movies.forEach(function(movie){ %>
+        <div class="ui raised container segment five wide column">
+            <a class="ui image fluid" href="/movies/<%= movie._id %>">
+                <% if(movie.Poster == "N/A"){ %>
+                    
+                <% } else { %>
+                    <img src="<%= movie.Poster %>">
+                <% } %>
+            <%= movie.Title %>
+            </a>
+        </div>
+    <% }); %>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+<div class="ui padded stackable grid container">
+        <div class="ui raised container segment eight wide column">
+            <a class="ui image fluid">
+                <% if(movie.Poster == "N/A"){ %>
+                    
+                <% } else { %>
+                    <img id="show-poster" src="<%= movie.Poster %>">
+                <% } %>
+            </a>
+            <p>
+                <%= movie.Title %>
+            </p>
+            <p>
+                Release Date: <%= movie.Year %>
+            </p>
+            <p>
+                IMDB id: <%= movie.imdbID %>
+            </p>
+        </div>
+</div>
+
+<% include ../partials/footer %>

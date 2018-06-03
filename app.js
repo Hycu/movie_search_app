@@ -17,6 +17,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 app.use(function(req, res, next){
+    var isThisQuery = false;
     Movie.find({}, function(err, foundMovies){
         if(err){
             res.send("Unexpected error.");
@@ -24,6 +25,10 @@ app.use(function(req, res, next){
             res.locals.movies = foundMovies;
             res.locals.error = "";
             res.locals.success = "";
+            if(req.query.responseType == "JSON"){
+                isThisQuery = true;
+            }
+            req.isThisQuery = isThisQuery;
             next();
         }
     });

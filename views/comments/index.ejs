@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+
+      <div class="ui simple centered dropdown item segment raised container">
+        <div class="header">Movies</div>
+        <div class="menu">
+          <% movies.forEach(function(movie){ %>
+                <a href="/movies/<%= movie._id %>/comments" class="item"><%= movie.Title %> (<%= movie._id %>)</a>
+          <% }); %>
+        </div>
+      </div>
+<div class="ui padded stackable grid container">
+    <% comments.forEach(function(comment){ %>
+        <div class="ui raised container segment five wide column">
+            <a class="ui image fluid" href="/comments/<%= comment._id %>">
+            <p>Comment: <%= comment.text %></p>
+            </a>
+        </div>
+    <% }); %>
+</div>
+
+<% include ../partials/footer %>

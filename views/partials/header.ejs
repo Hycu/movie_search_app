@@ -7,21 +7,12 @@
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
     <body>
-    <div class="ui six item menu">
+    <div class="ui five item menu">
       <a href="/" class="active green item">Home</a>
       <a href="/movies/new" class="item">Add new movie</a>
       <a href="/movies" class="item">List all movies</a>
       <a href="/comments/new" class="item">Add new comment</a>
       <a href="/comments" class="item">List all comments</a>
-      <div class="ui simple dropdown item">
-        List comments of specific movie 
-        <div class="menu left">
-          <div class="header">Movies</div>
-          <% movies.forEach(function(movie){ %>
-              <a href="/comments/<%= movie._id %>" class="item"><%= movie.Title %> (<%= movie._id %>)</a>
-          <% }); %>
-        </div>
-      </div>
     </div>
         <div class="ui container">
         <% if(error && error.length > 0){ %>

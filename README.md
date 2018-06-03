@@ -7,19 +7,27 @@ App uses:
 
 Send requests to https://agile-thicket-51610.herokuapp.com
 
-action="/movies" method="GET" --> will return a list of all movies contained in DB (in JSON format).
+action="/movies" method="GET" --> will return a list of all movies contained in DB.
 
-action="/movies" method="POST" --> requires parameter "Title" to be filled, it posts a movie into the database with additional information from http://www.omdbapi.com/, and responds with the movie object in JSON format.
+action="/movies" method="POST" --> requires parameter "Title" to be filled, it posts a movie into the database with additional information from http://www.omdbapi.com/, and responds with the movie object.
 
-action="/comments" method="GET" --> will return a list of all comments contained in DB (in JSON format).
+action="/comments" method="GET" --> will return a list of all comments contained in DB.
 
 action="/comments" method="POST" --> requires parameters:
 - "movieId" which is an "_id" of a movie already contained in a DB,
 - "text" which is a content of a comment.
 
-The response is a single comment object in JSON format.
+The response is a single comment object.
 
-action="/comments/:movieId" method="GET" --> will return a list of all comments assigned to the movie with "_id" equal to "movieId" (in JSON format).
+action="/movies/:movieId/comments" method="GET" --> will return a list of all comments assigned to the movie with "_id" equal to "movieId".
+
+----------------------------------------------------------------------------------------------------------
+IMPORTANT NOTE:
+
+If you want to get response in JSON format, add parameter "responseType" equal to "JSON" to your request.
+Otherwise, response will be consumed by a frontend solution.
+
+----------------------------------------------------------------------------------------------------------
 
 Object movie contains:
 - "_id" - id of the movie in DB,
