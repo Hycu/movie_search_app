@@ -48,7 +48,7 @@ router.post("/", function(req, res){
                         });
                     } else {
                         if(req.isThisQuery){
-                            res.send("error: 'Movie already in db.'");
+                            res.send({error: "Movie already in db."});
                         } else {
                             res.render("./movies/new", {error: "Movie already in db."});
                         }
