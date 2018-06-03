@@ -29,6 +29,7 @@ app.use(function(req, res, next){
                 isThisQuery = true;
             }
             req.isThisQuery = isThisQuery;
+            res.isThisQuery = isThisQuery;
             next();
         }
     });
