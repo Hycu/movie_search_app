@@ -16,6 +16,7 @@ action="/comments" method="GET" --> will return a list of all comments contained
 action="/comments" method="POST" --> requires parameters:
 - "movieId" which is an "_id" of a movie already contained in a DB,
 - "text" which is a content of a comment.
+
 The response is a single comment object in JSON format.
 
 action="/comments/:movieId" method="GET" --> will return a list of all comments assigned to the movie with "_id" equal to "movieId" (in JSON format).
@@ -26,6 +27,7 @@ Object movie contains:
 - "Year" - year the movie was released,
 - "imdbID" - IMDB id of the movie,
 - "Poster" - url to the poster of the movie.
+
 Example:
 {
     "_id":"5b12cfdfd3c8d40f1d2a9f4c",
@@ -40,6 +42,7 @@ Object comment contains:
 - "_id" - id of the comment in DB,
 - "movieId" - id of the movie, the comment is assigned to,
 - "text" - content of the comment.
+
 Example:
 {
     "_id":"5b138cf3f99d3d00143bf5f4",
