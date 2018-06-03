@@ -6,7 +6,11 @@ var Comment = require("../models/comment.js"),
 router.get("/", function(req, res){
     Comment.find({}, function(err, comments){
         if(err){
-            res.render("./comments/new", {error: "Error during searching for comments."});
+            if(req.body){
+                res.render("./comments/new", {error: "Error during searching for comments."});
+            } else {
+                res.send({error: "Error during searching for comments."});
+            }
         } else {
             res.send(comments);
         }
@@ -16,7 +20,7 @@ router.get("/", function(req, res){
 router.get("/new", function(req, res){
     Movie.find({}, function(err, foundMovies){
         if(err || foundMovies.length == 0){
-            res.render("./comments/new", {error: "There are no movies in db. Add a movie first."});
+            res.render("./movies/new", {error: "There are no movies in db. Add a movie first."});
         } else {
             res.render("./comments/new");
         }
@@ -24,17 +28,34 @@ router.get("/new", function(req, res){
 });
 
 router.post("/", function(req, res){
-    var newComment = {
-        movieId: req.query.movieId || req.body.comment.ID,
-        text: req.query.text || req.body.comment.content
-    };
-    Comment.create(newComment, function(err, createdComment){
-        if(err){
-            res.render("./comments/new", {error: "Error during comment creation."});
+    var isThisQuery = false;
+    if(Object.keys(req.body).length === 0){
+        isThisQuery = true;
+    }
+    if(req.query.movieId && req.query.text || req.body.comment.ID && req.body.comment.content)
+    {
+        var newComment = {
+            movieId: req.query.movieId || req.body.comment.ID,
+            text: req.query.text || req.body.comment.content
+        };
+        Comment.create(newComment, function(err, createdComment){
+            if(err){
+                if(isThisQuery){
+                    res.send({error: "Error during comment creation."});
+                } else {
+                    res.render("./comments/new", {error: "Error during comment creation."});
+                }
+            } else {
+                res.send(createdComment);
+            }
+        });
+    } else {
+        if(isThisQuery){
+            res.send({error: "Fill movieId and text field."});
         } else {
-            res.send(createdComment);
+            res.render("./comments/new", {error: "Fill movieId and text field."});
         }
-    });
+    }
 });
 
 router.get("/:movieId", function(req, res){

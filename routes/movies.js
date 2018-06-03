@@ -18,6 +18,10 @@ router.get("/new", function(req, res){
 });
 
 router.post("/", function(req, res){
+    var isThisQuery = false;
+    if(Object.keys(req.body).length === 0){
+        isThisQuery = true;
+    }
     if(req.body.Title || req.query.Title){
         var title = req.body.Title || req.query.Title;
         request("http://omdbapi.com/?s=" + title + "&apikey=" + process.env.APIKEY, function(error, response, body){
@@ -28,21 +32,37 @@ router.post("/", function(req, res){
                     if(!err && foundMovie.length == 0){
                         Movie.create(newMovie, function(err, createdMovie){
                             if(err){
-                                res.render("./movies/new", {error: "Error during adding movie to the DB."});
+                                if(isThisQuery){
+                                    res.send({error: "Error during adding movie to the DB."});
+                                } else {
+                                    res.render("./movies/new", {error: "Error during adding movie to the DB."});
+                                }
                             } else {
                                 res.send(createdMovie);
                             }
                         });
                     } else {
-                        res.render("./movies/new", {error: "Movie already in db."});
+                        if(isThisQuery){
+                            res.send({error: "Movie already in db."});
+                        } else {
+                            res.render("./movies/new", {error: "Movie already in db."});
+                        }
                     }
                 });
             } else {
-                res.render("./movies/new", {error: "Movie not found."});
+                if(isThisQuery){
+                    res.send({error: "Movie not found."});
+                } else {
+                    res.render("./movies/new", {error: "Movie not found."});
+                }
             }
         });
     } else {
-        res.render("./movies/new", {error: "Fill 'Title' field."});
+        if(isThisQuery){
+            res.send({error: "Fill 'Title' field."});
+        } else {
+            res.render("./movies/new", {error: "Fill 'Title' field."});
+        }
     }
 });
 
