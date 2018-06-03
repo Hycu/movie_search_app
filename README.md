@@ -1,4 +1,5 @@
 App uses:
+"api-easy" for tests,
 "body-parser" as a middleware which allows to parse the body of request, 
 "ejs" to allow using embedded JavaScript (".ejs" files),
 "express" as a server-side framework,

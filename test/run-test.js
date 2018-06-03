@@ -12,6 +12,9 @@ suite.use("agile-thicket-51610.herokuapp.com", 80)
      .setHeader("Content-Type", "application/json")
      .followRedirect(false)
      
+     .get("/movies", {responseType: "JSON"})
+     .expect(200)
+     
      .get("/movies/5b12cfdfd3c8d40f1d2a9f4c", {responseType: "JSON"})
      .expect(200, {
            _id: "5b12cfdfd3c8d40f1d2a9f4c", 
@@ -20,14 +23,23 @@ suite.use("agile-thicket-51610.herokuapp.com", 80)
           imdbID: "tt0109830", 
           Poster: "https://ia.media-imdb.com/images/M/MV5BNWIwODRlZTUtY2U3ZS00Yzg1LWJhNzYtMmZiYmEyNmU1NjMzXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg", 
           __v: 0 
-       })
+     })
        
-     .post("/movies", {Title: "Forrest Gump"})
-     .expect(200, {error: "Movie already in db."})
+     .post("/movies", {Title: "Forrest Gump", responseType: "JSON"})
+     .expect(200)
      
-    //  .get("/comments")
-    //  .expect(200, { ok: true })
+     .get("/comments", {responseType: "JSON"})
+     .expect(200)
+     
+     .get("/comments/5b138cf3f99d3d00143bf5f4", {responseType: "JSON"})
+     .expect(200, {
+        _id: "5b138cf3f99d3d00143bf5f4",
+        movieId: "5b12cfdfd3c8d40f1d2a9f4c",
+        text: "Test comment",
+        __v: 0
+    })
     
-    //  .post("/comments", { dynamic: true })
-    //  .expect(200, { dynamic: true })
+     .post("/comments")
+     .expect(500)
+     
      .export(module);
